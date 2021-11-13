@@ -36,7 +36,7 @@
     * MONGO_URI=(Add your custom mongodb connection string here. EX: mongodb+srv://...)
 
 
-## 1- GET TODOS:
+<!-- ## 1- GET TODOS:
 - run on http://localhost:8000
 - [Static public folder](https://github.com/maggiemcc/todo-api-mongodb/blob/master/public)
 - [Server File](https://github.com/maggiemcc/todo-api-mongodb/blob/master/server.js)
@@ -102,6 +102,6 @@
     - Browser EX: Find the "delete" button for "complete homework". Click to delete the task.
 
 - DELETE todos: on line 60
-[Delete Todo index.js](https://github.com/maggiemcc/todo-api-mongodb/blob/master/public/index.js)
+[Delete Todo index.js](https://github.com/maggiemcc/todo-api-mongodb/blob/master/public/index.js) -->
 
 
