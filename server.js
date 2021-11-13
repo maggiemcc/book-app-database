@@ -20,6 +20,9 @@ mongoose
   })
   .catch(console.error);
 
+  if(port == null || port == "") {
+    port = 8000;
+  }
 
 const app = express();
 
