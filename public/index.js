@@ -58,6 +58,11 @@ function displayBooks() {
           <h5 class="card-title">${book.title}</h5>
           <h6 class="card-subtitle mb-2 card-author">Author(s): ${book.author}</h6>
           <h6 class="card-subtitle mb-2 card-year">Published in: ${book.published}</h6>
+  
+          <div class="buttonDiv">
+             <button type="button" class="wishlist" id="add-to-wishlist-section">Want to Read</button>
+             <button type="button" class="have-read" id="add-to-read-section">Have Read</button>
+            </div>
         </div>
         </div>
       `;
@@ -116,6 +121,9 @@ function displayBookWishlist() {
             <h5 class="card-title">${book.title}</h5>
             <h6 class="card-subtitle mb-2 card-author">Author(s): ${book.author}</h6>
             <h6 class="card-subtitle mb-2 card-year">Published in: ${book.published}</h6>
+            <div class="buttonDiv">
+               <button type="button" class="have-read" id="add-to-read-section">Have Read</button>
+            </div>
           </div>
           </div>
         `;
@@ -142,6 +150,9 @@ fetch("/books/wishlist/true", {
               <h5 class="card-title">${book.title}</h5>
               <h6 class="card-subtitle mb-2 card-author">Author(s): ${book.author}</h6>
               <h6 class="card-subtitle mb-2 card-year">Published in: ${book.published}</h6>
+              <div class="buttonDiv">
+              <button type="button" class="have-read" id="add-to-read-section">Have Read</button>
+           </div>
             </div>
             </div>
             `
@@ -223,6 +234,11 @@ fetch("/books/readlist/true", {
               <h5 class="card-title">${book.title}</h5>
               <h6 class="card-subtitle mb-2 card-author">Author(s): ${book.author}</h6>
               <h6 class="card-subtitle mb-2 card-year">Published in: ${book.published}</h6>
+
+            <div class="ratingDiv-data">
+               <i class="fa fa-thumbs-up book-liked"></i>
+               <i class="fa fa-thumbs-down book-disliked"></i>
+            </div>
             </div>
             </div>
             `
