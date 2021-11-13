@@ -35,7 +35,19 @@
     * PORT=8000
     * MONGO_URI=(Add your custom mongodb connection string here. EX: mongodb+srv://...)
 
+[Heroku](https://aqueous-cliffs-28065.herokuapp.com/)
+links:
+Get all books:
+- https://aqueous-cliffs-28065.herokuapp.com/books
 
+Get Books read:
+- https://aqueous-cliffs-28065.herokuapp.com/books/readlist/true
+
+Get Books wishlist:
+- https://aqueous-cliffs-28065.herokuapp.com/books/wishlist/true
+
+Get Books liked:
+- https://aqueous-cliffs-28065.herokuapp.com/books/liked/true
 <!-- ## 1- GET TODOS:
 - run on http://localhost:8000
 - [Static public folder](https://github.com/maggiemcc/todo-api-mongodb/blob/master/public)
