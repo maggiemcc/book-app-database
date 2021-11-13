@@ -4,9 +4,7 @@ const bookRoutes = require("./routes/books");
 
 const mongoose = require("mongoose");
 const { mongoURI, port } = require("./config");
-
 const uri = `${mongoURI}`;
-
 mongoose
   .connect(uri, {
     useNewUrlParser: true,
@@ -28,6 +26,7 @@ const app = express();
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
+
 app.use(bodyParser.text());
 app.use("/books", bookRoutes);
 
