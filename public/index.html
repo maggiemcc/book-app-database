@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://kit.fontawesome.com/b44e729d01.js" crossorigin="anonymous"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <link rel="stylesheet" href="index.css">
+
+
+    <title>Book App</title>
+</head>
+
+<body>
+    <div>
+        <h1 style="text-align: center; color: white; font-weight: bolder;">Book App</h1>
+    </div>
+
+<div class="appContent">
+<div class="searchContent">
+    <h3 style="color: white; text-align: center; border-bottom: 3px solid white; margin-top: 20px; padding-bottom: 2%;">Search</h3>
+
+    <section class="search-section">
+        <input type="text" name="searchBar" placeholder="Search for a book"><button class="getBooks">Search</button>
+    </section>
+    <div class="results">
+        <div class="results-dropdown">
+            <div style="font-weight: 500; text-align: left; font-size: 30px;">
+            <h3 style="display: inline;">Search Results</h3>
+            <i class="fas fa-caret-down" style="display: inline; float: right; padding: 0; margin: auto 1%; font-size: 35px;"></i>
+        </div>
+            <h6 class="total-number" style="color: green;"></h6>
+            <hr style="border-top: 5px solid green; opacity: 1; width: 100%; margin: auto;">
+        </div>
+
+        <div id="results" class="results-list">
+
+        </div>
+    </div>
+
+    
+    </div>
+
+    <div class="category">
+        <h3 style="color: white; text-align: center; border-bottom: 3px solid white; margin-top: 20px; padding-bottom: 2%;">Reading Lists</h3>
+        <section class="toread-section">
+            <div class="section-dropdown">
+                <h1>Want to Read</h1>
+                <i class="fas fa-caret-down"></i>
+            </div>
+
+            <div class="wishlistContent">
+                <!-- <div style="min-height: 50px;">
+                    <hr style="max-width: none;">
+
+                </div> -->
+            </div>
+
+        </section>
+
+        <section class="booksread-section">
+            <div class="section-dropdown read-section">
+                <h1>Books I've Read</h1>
+                <i class="fas fa-caret-down"></i>
+            </div>
+
+            <div class="readContent">
+                <!-- <div style="min-height: 50px;">
+                    <hr style="max-width: none;">
+
+                </div> -->
+            </div>
+        </section>
+    </div>
+</div>
+
+    <script src="index.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,230 @@
+body {
+    padding: 2%;
+    background-color: darkgreen;
+    color: black;
+  }
+  
+  .appContent {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    max-width: 1200px;
+    margin: auto;
+    padding: 0 5% 5% 5%;
+    background-color: green;
+    border-radius: 20px;
+    margin-top: 30px;
+    border: 1px solid black;
+  }
+  
+  section {
+    margin: 2% auto;
+    width: 95%;
+    padding: 2%;
+    border-radius: 10px;
+    box-shadow: 5px 5px 2px 1px rgba(0, 0, 0, 0.2);
+    background-color: white;
+  }
+  
+  section h1 {
+    font-size: 30px;
+  }
+  
+  .searchContent {
+    width: 95%;
+    margin: 0 auto;
+  }
+  
+  .search-section {
+    width: 100%;
+    text-align: center;
+  }
+  
+  .search-section input {
+    padding: 1%;
+    width: 70%;
+    max-width: 300px;
+    border-radius: 5px;
+    outline: none;
+  }
+  
+  .search-section button {
+    background-color: green;
+    color: white;
+    padding: 2%;
+    line-height: 20px;
+    margin-left: 2%;
+    border-radius: 5px;
+    border: none;
+  }
+  
+  .results {
+    width: 100%;
+    max-width: 1100px;
+    margin: auto;
+    border-radius: 5px;
+    text-align: center;
+    box-shadow: 5px 5px 2px 1px rgba(0, 0, 0, 0.2);
+    background-color: white;
+    padding: 2%;
+  }
+  
+  #results {
+    width: 90%;
+    margin: auto auto;
+    min-height: 100px;
+    border-radius: 5px;
+    display: block;
+    justify-content: center;
+  }
+  
+  .section-dropdown {
+    width: 100%;
+    line-height: 15px;
+    text-align: left;
+    font-size: 15px;
+    cursor: pointer;
+    display: grid;
+    grid-template-columns: 90% 10%;
+  }
+  
+  .fa-caret-down {
+    font-size: 35px;
+    margin: auto 5%;
+  }
+  
+  .wishlistContent,
+  .readContent {
+    display: none;
+    padding: 1%;
+    width: 100%;
+    margin: auto;
+    border-radius: 5px;
+  }
+  
+  .card {
+    margin: 1%;
+    width: 100%;
+    max-width: 500px;
+    border-radius: 5px;
+    text-align: left;
+    border: 1px solid lightgray;
+    box-shadow: 3px 3px 2px 1px rgba(0, 0, 0, 0.2);
+    justify-content: center;
+    margin: 2% auto;
+  }
+  
+  .cardKeyDiv p,
+  .cardVersionDiv p {
+    display: inline;
+  }
+  
+  .card-title {
+    color: green;
+    text-transform: uppercase;
+    font-weight: bold;
+    font-size: 18px;
+    margin-top: 15px;
+  }
+  
+  .category {
+    padding: 0;
+    width: 95%;
+    margin: 0 auto;
+  }
+  
+  .toread-section,
+  .booksread-section {
+    width: 100%;
+    margin: 2% auto;
+    padding: 2% 2%;
+    /* min-height: 80px; */
+    /* border: 1px solid red; */
+  }
+  
+  .booksread-section {
+      margin-top: 5%;
+  }
+  
+  .results-dropdown {
+    cursor: pointer;
+  }
+  
+  .results-dropdown .fa-caret-down {
+    margin: 0;
+    margin: 0 1%;
+    display: inline;
+  }
+  
+  .total-number {
+    font-weight: bold;
+  }
+  
+  .wishlist,
+  .have-read {
+    color: white;
+    background-color: darkgreen;
+    border: none;
+    border-radius: 4px;
+    padding: 2%;
+    margin: 2%;
+  }
+  
+  hr {
+    border-top: 5px solid green;
+    opacity: 1;
+    width: 100%;
+    margin: auto;
+  }
+  
+  .remove-btn {
+    text-align: right;
+    background-color: darkred;
+    border: none;
+    border-radius: 4px;
+    padding: 2%;
+    color: white;
+    width: 30%;
+    min-width: 50px;
+    text-align: center;
+    margin: 10px 2%;
+  }
+
+  .ratingDiv {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+
+  .liked-book, .disliked-book {
+    cursor: pointer;
+    background-color: none;
+    background-color: transparent;
+    color: gray;
+    border: none;
+  }
+
+  #book-rated-down, #book-rated-up {
+    cursor: pointer;
+    background-color: none;
+    background-color: transparent;
+    color: green;
+    border: none;
+  }
+
+  @media only screen and (max-width: 900px) {
+    .appContent {
+      display: block;
+      margin: auto;
+      padding: 5px 1% 40px 1%;
+      background-color: green;
+      border-radius: 20px;
+      margin-top: 30px;
+    }
+  
+    .toread-section,
+    .booksread-section {
+      width: 100%;
+      margin-top: 20px;
+    }
+  }
+  
