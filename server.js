@@ -3,8 +3,11 @@ const bodyParser = require("body-parser");
 const bookRoutes = require("./routes/books");
 
 const mongoose = require("mongoose");
-const { mongoURI, port } = require("./config");
+const { mongoURI } = require("./config");
 const uri = `${mongoURI}`;
+
+let port = process.env.PORT || 8000;
+
 mongoose
   .connect(uri, {
     useNewUrlParser: true,
@@ -18,9 +21,6 @@ mongoose
   })
   .catch(console.error);
 
-  if(port == null || port == "") {
-    port = 8000;
-  }
 
 const app = express();
 
