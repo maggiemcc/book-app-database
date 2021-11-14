@@ -192,6 +192,36 @@ fetch("/books/wishlist/true", {
             </div>
             `
             wishlistResults.insertAdjacentHTML("beforeend", bookCard);
+
+
+            document.addEventListener("click", (event) => {
+                let bookCardId = event.target.parentElement.parentElement.parentElement.id;
+                let book = data.find((book) => book.version == bookCardId);
+        
+                if (event.target.id === "move-to-read-section"){
+                    console.log("move >", book);
+                    book.hasRead = true;
+                    book.wishlist = false;
+        
+                    fetch(`/books/${bookCardId}`, {
+                        method: "PUT",
+                        body: JSON.stringify({ hasRead: `${book.hasRead}`, wishlist: `${book.wishlist}` }),
+                        headers: {
+                          "Content-type": "application/json; charset=UTF-8",
+                          "Accept": "application/json",
+                        },
+                      })
+                        .then((res) => {res.json(); 
+                            location.reload();
+                        })
+                        .catch((error) => {
+                          console.log(error);
+                        });
+        
+                }
+        
+            })
+        
         });
     })
     .catch((err) => { console.error(err) });
@@ -333,9 +363,9 @@ fetch("/books/readlist/true", {
     document.addEventListener("click", (event) => {
         let bookCardId = event.target.parentElement.parentElement.parentElement.id;
         let book = booksArray.find((book) => book.version == Number(bookCardId));
-        // let button = document.querySelector("#move-to-read-section");
 
         if (event.target.id === "move-to-read-section"){
+            console.log("move >", book);
             book.hasRead = true;
             book.wishlist = false;
 
@@ -347,7 +377,9 @@ fetch("/books/readlist/true", {
                   "Accept": "application/json",
                 },
               })
-                .then((res) => {res.json(); location.reload();})
+                .then((res) => {res.json(); 
+                    location.reload();
+                })
                 .catch((error) => {
                   console.log(error);
                 });
