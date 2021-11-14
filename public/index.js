@@ -117,8 +117,8 @@ document.addEventListener("click", (event) => {
 function addBookToWishlist(event) {
     let bookId = event.target.parentElement.parentElement.parentElement.id;
     let book = booksArray.find((book) => { return book.version === Number(bookId) })
-    if (!book.wishlist) {book.wishlist = true; book.hasRead = false;}
-    else { book.wishlist = false;};
+    if (!book.wishlist) book.wishlist = true;
+    else { book.wishlist = false };
 
     displayBookWishlist()
 
@@ -202,7 +202,7 @@ function addBookToRead(event) {
 
     if (!book.hasRead) {book.hasRead = true;}
     else book.hasRead = false;
-    if (book.wishlist = true) { return book.wishlist = false}
+    if (book.wishlist = true) {book.wishlist = false}
 
     displayBooksRead()
 
