@@ -16,6 +16,40 @@ searchInput.addEventListener("keydown", (event) => {
     }
 })
 
+
+// Toggling sections
+document.querySelector(".section-dropdown").addEventListener("click", toggleWishlist)
+function toggleWishlist() {
+    let content = document.querySelector(".wishlistContent");
+    if (content.style.display === "none") {
+        content.style.display = "block";
+    } else {
+        content.style.display = "none";
+    }
+}
+
+
+document.querySelector(".read-section").addEventListener("click", toggleReadList)
+function toggleReadList() {
+    let content = document.querySelector(".readContent");
+    if (content.style.display === "none") {
+        content.style.display = "block";
+    } else {
+        content.style.display = "none";
+    }
+}
+
+document.querySelector(".results-dropdown").addEventListener("click", toggleSearch)
+let content = document.querySelector("#results");
+function toggleSearch() {
+    if (content.style.display === "none") {
+        content.style.display = "block";
+    } else {
+        content.style.display = "none";
+    }
+}
+
+
 let booksArray = [];
 
 // fetching book api data
@@ -293,35 +327,3 @@ document.addEventListener("click", (event) => {
     }
 
 })
-
-// Toggling sections
-document.querySelector(".section-dropdown").addEventListener("click", toggleWishlist)
-function toggleWishlist() {
-    let content = document.querySelector(".wishlistContent");
-    if (content.style.display === "none") {
-        content.style.display = "block";
-    } else {
-        content.style.display = "none";
-    }
-}
-
-
-document.querySelector(".read-section").addEventListener("click", toggleReadList)
-function toggleReadList() {
-    let content = document.querySelector(".readContent");
-    if (content.style.display === "none") {
-        content.style.display = "block";
-    } else {
-        content.style.display = "none";
-    }
-}
-
-document.querySelector(".results-dropdown").addEventListener("click", toggleSearch)
-let content = document.querySelector("#results");
-function toggleSearch() {
-    if (content.style.display === "none") {
-        content.style.display = "block";
-    } else {
-        content.style.display = "none";
-    }
-}
