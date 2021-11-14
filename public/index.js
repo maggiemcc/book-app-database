@@ -110,6 +110,7 @@ function displayBooks() {
 document.addEventListener("click", (event) => {
     if (event.target.id === "add-to-wishlist-section") addBookToWishlist(event);
     else if (event.target.id === "add-to-read-section") addBookToRead(event);
+    // else if (event.target.id === "move-to-read-section") moveBookToRead(event);
 })
 
 
@@ -155,7 +156,7 @@ function displayBookWishlist() {
             <h6 class="card-subtitle mb-2 card-author">Author(s): ${book.author}</h6>
             <h6 class="card-subtitle mb-2 card-year">Published in: ${book.published}</h6>
             <div class="buttonDiv">
-               <button type="button" class="have-read" id="add-to-read-section">Have Read</button>
+               <button type="button" class="have-read" id="move-to-read-section">Have Read</button>
             </div>
           </div>
           </div>
@@ -163,6 +164,7 @@ function displayBookWishlist() {
 
             wishlistResults.insertAdjacentHTML("beforeend", bookCard);
         }
+        
     })
 }
 fetch("/books/wishlist/true", {
@@ -184,16 +186,16 @@ fetch("/books/wishlist/true", {
               <h6 class="card-subtitle mb-2 card-author">Author(s): ${book.author}</h6>
               <h6 class="card-subtitle mb-2 card-year">Published in: ${book.published}</h6>
               <div class="buttonDiv">
-              <button type="button" class="have-read" id="add-to-read-section">Have Read</button>
+              <button type="button" class="have-read" id="move-to-read-section">Have Read</button>
            </div>
             </div>
             </div>
             `
-            wishlistResults.insertAdjacentHTML("beforeend", bookCard)
+            wishlistResults.insertAdjacentHTML("beforeend", bookCard);
         });
-
     })
     .catch((err) => { console.error(err) });
+
 
 // read book list
 function addBookToRead(event) {
@@ -298,7 +300,7 @@ fetch("/books/readlist/true", {
                           "Accept": "application/json",
                         },
                       })
-                        .then((res) => {console.log("happend"); res.json()})
+                        .then((res) => {res.json();})
                         .catch((error) => {
                           console.log(error);
                         });
@@ -327,6 +329,32 @@ fetch("/books/readlist/true", {
 
     })
     .catch((err) => { console.error(err) });
+
+    document.addEventListener("click", (event) => {
+        let bookCardId = event.target.parentElement.parentElement.parentElement.id;
+        let book = booksArray.find((book) => book.version == Number(bookCardId));
+        // let button = document.querySelector("#move-to-read-section");
+
+        if (event.target.id === "move-to-read-section"){
+            book.hasRead = true;
+            book.wishlist = false;
+
+            fetch(`/books/${bookCardId}`, {
+                method: "PUT",
+                body: JSON.stringify({ hasRead: `${book.hasRead}`, wishlist: `${book.wishlist}` }),
+                headers: {
+                  "Content-type": "application/json; charset=UTF-8",
+                  "Accept": "application/json",
+                },
+              })
+                .then((res) => {res.json(); location.reload();})
+                .catch((error) => {
+                  console.log(error);
+                });
+
+        }
+
+    })
 
 
 // Rating books
