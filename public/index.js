@@ -287,18 +287,17 @@ fetch("/books/readlist/true", {
 
                 if (event.target.classList.contains("book-liked")) {
                     likedRating.setAttribute("id", "book-rated-up");
-                    bookSelected.rating = true;
                     dislikedRating.removeAttribute("id", "book-rated-down");
-                    console.log("liked", bookSelected)
-
+                    bookSelected.liked = true;
+                    console.log(bookSelected)
                 }
                 else if (event.target.classList.contains("book-disliked")) {
                     dislikedRating.setAttribute("id", "book-rated-down");
-                    bookSelected.rating = false;
                     likedRating.removeAttribute("id", "book-rated-up");
-                    console.log("disliked", bookSelected)
-                }
+                    bookSelected.liked = false;
+                    console.log(bookSelected)
 
+                }
             })
 
         });
@@ -311,19 +310,47 @@ fetch("/books/readlist/true", {
 document.addEventListener("click", (event) => {
     let bookCardId = event.target.parentElement.parentElement.parentElement.id;
     let book = booksArray.find((book) => book.version == bookCardId)
-    console.log(book)
     let likedRating = document.querySelector(".liked-book");
     let dislikedRating = document.querySelector(".disliked-book")
 
     if (event.target.classList.contains("liked-book")) {
         likedRating.setAttribute("id", "book-rated-up");
-        book.rating = true;
         dislikedRating.removeAttribute("id", "book-rated-down");
+        book.liked = true;
+        console.log(book)
+
+        fetch(`/books/${bookCardId}`, {
+            method: "PUT",
+            body: JSON.stringify({ liked: `${book.liked}` }),
+            headers: {
+              "Content-type": "application/json; charset=UTF-8",
+              "Accept": "application/json",
+            },
+          })
+            .then((res) => {console.log("happend"); res.json()})
+            .catch((error) => {
+              console.log(error);
+            });
     }
     else if (event.target.classList.contains("disliked-book")) {
-        dislikedRating.setAttribute("id", "book-rated-down");
-        book.rating = false;
+        event.target.dislikedRating.setAttribute("id", "book-rated-down");
         likedRating.removeAttribute("id", "book-rated-up");
+        book.liked = false;
+        console.log(book)
+
+        fetch(`/books/${bookCardId}`, {
+            method: "PUT",
+            body: JSON.stringify({ liked: `${book.liked}` }),
+            headers: {
+              "Content-type": "application/json; charset=UTF-8",
+              "Accept": "application/json",
+            },
+          })
+            .then((res) => {console.log("happend"); res.json()})
+            .catch((error) => {
+              console.log(error);
+            });
     }
 
 })
+
