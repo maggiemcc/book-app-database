@@ -176,7 +176,7 @@ fetch("/books/wishlist/true", {
 })
     .then((res) => res.json())
     .then((data) => {
-        console.log("data", data);
+        console.log("wishlist data", data);
         data.forEach((book) => {
             console.log("display >", book)
             let bookCard = `
@@ -261,7 +261,7 @@ fetch("/books/readlist/true", {
 })
     .then((res) => res.json())
     .then((data) => {
-        console.log("data", data);
+        console.log("books read data", data);
         data.forEach((book) => {
             console.log("display >", book)
             let bookCard = `
@@ -300,7 +300,7 @@ fetch("/books/readlist/true", {
                           "Accept": "application/json",
                         },
                       })
-                        .then((res) => {res.json();})
+                        .then((res) => {console.log("changed rating"); res.json();})
                         .catch((error) => {
                           console.log(error);
                         });
@@ -318,7 +318,7 @@ fetch("/books/readlist/true", {
                           "Accept": "application/json",
                         },
                       })
-                        .then((res) => {console.log("happend"); res.json()})
+                        .then((res) => {console.log("changed rating"); res.json()})
                         .catch((error) => {
                           console.log(error);
                         });
