@@ -198,9 +198,9 @@ fetch("/books/wishlist/true", {
 // read book list
 function addBookToRead(event) {
     const bookCardId = event.target.parentElement.parentElement.parentElement.id;
-    let book = booksArray.find((book) => book.version == bookCardId)
+    let book = booksArray.find((book) => { return book.version === Number(bookCardId) })
 
-    if (!book.hasRead) book.hasRead = true;
+    if (!book.hasRead) {book.hasRead = true;}
     else book.hasRead = false;
 
     displayBooksRead()
