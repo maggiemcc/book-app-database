@@ -33,7 +33,7 @@
     * MONGO_URI=(Add your custom mongodb connection string here. EX: mongodb+srv://...)
 
 - [Heroku link](https://aqueous-cliffs-28065.herokuapp.com/)
-- links:
+- links: (refresh page for updated links)
     Get all books:
     - https://aqueous-cliffs-28065.herokuapp.com/books
 

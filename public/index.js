@@ -40,15 +40,14 @@ function toggleReadList() {
 }
 
 document.querySelector(".results-dropdown").addEventListener("click", toggleSearch)
-let content = document.querySelector("#results");
 function toggleSearch() {
+let content = document.querySelector("#results");
     if (content.style.display === "none") {
         content.style.display = "block";
     } else {
         content.style.display = "none";
     }
 }
-
 
 let booksArray = [];
 
@@ -289,14 +288,37 @@ fetch("/books/readlist/true", {
                     likedRating.setAttribute("id", "book-rated-up");
                     dislikedRating.removeAttribute("id", "book-rated-down");
                     bookSelected.liked = true;
-                    console.log(bookSelected)
+                    
+                    fetch(`/books/${bookCardId}`, {
+                        method: "PUT",
+                        body: JSON.stringify({ liked: `${book.liked}` }),
+                        headers: {
+                          "Content-type": "application/json; charset=UTF-8",
+                          "Accept": "application/json",
+                        },
+                      })
+                        .then((res) => {console.log("happend"); res.json()})
+                        .catch((error) => {
+                          console.log(error);
+                        });
                 }
                 else if (event.target.classList.contains("book-disliked")) {
                     dislikedRating.setAttribute("id", "book-rated-down");
                     likedRating.removeAttribute("id", "book-rated-up");
                     bookSelected.liked = false;
-                    console.log(bookSelected)
-
+                    
+                    fetch(`/books/${bookCardId}`, {
+                        method: "PUT",
+                        body: JSON.stringify({ liked: `${book.liked}` }),
+                        headers: {
+                          "Content-type": "application/json; charset=UTF-8",
+                          "Accept": "application/json",
+                        },
+                      })
+                        .then((res) => {console.log("happend"); res.json()})
+                        .catch((error) => {
+                          console.log(error);
+                        });
                 }
             })
 
