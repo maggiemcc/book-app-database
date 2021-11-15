@@ -323,12 +323,8 @@ fetch("/books/readlist/true", {
         document.addEventListener("click", (event) => {
             let bookCardId = event.target.parentElement.parentElement.parentElement.id;
             let bookSelected = data.find((book) => book.version === Number(bookCardId))
-            // let likedRating = document.querySelector(".book-liked");
-            // let dislikedRating = document.querySelector(".book-disliked")
 
             if (event.target.classList.contains("book-liked")) {
-                // likedRating.setAttribute("id", "book-rated-up");
-                // dislikedRating.removeAttribute("id", "book-rated-down");
                 bookSelected.liked = true;
                 alert(`"${bookSelected.title}" has been liked`);
 
