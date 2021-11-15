@@ -110,7 +110,6 @@ function displayBooks() {
 document.addEventListener("click", (event) => {
     if (event.target.id === "add-to-wishlist-section") addBookToWishlist(event);
     else if (event.target.id === "add-to-read-section") addBookToRead(event);
-    // else if (event.target.id === "move-to-read-section") moveBookToRead(event);
 })
 
 
@@ -203,6 +202,7 @@ fetch("/books/wishlist/true", {
                     console.log("move >", book);
                     book.hasRead = true;
                     book.wishlist = false;
+                    alert(`"${book.title} move to read list.`)
 
                     fetch(`/books/${bookCardId}`, {
                         method: "PUT",
@@ -383,6 +383,8 @@ document.addEventListener("click", (event) => {
         console.log("move >", book);
         book.hasRead = true;
         book.wishlist = false;
+        alert(`"${book.title} move to read list.`)
+
 
         fetch(`/books/${bookCardId}`, {
             method: "PUT",
