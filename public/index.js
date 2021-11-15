@@ -9,8 +9,8 @@ getBooksBtn.addEventListener("click", () => {
     fetchBooksApi();
 })
 
-searchInput.addEventListener("keydown", (event) => {
-    if (event.code === "Enter") {
+searchInput.addEventListener("keydown", (e) => {
+    if (e.code === "Enter") {
         resultsContent.innerHTML = " ";
         fetchBooksApi();
     }
@@ -106,19 +106,19 @@ function displayBooks() {
 }
 
 
-// adding click event for sections
-document.addEventListener("click", (event) => {
-    if (event.target.id === "add-to-wishlist-section") addBookToWishlist(event);
-    else if (event.target.id === "add-to-read-section") addBookToRead(event);
+// adding click event for wishlist
+document.addEventListener("click", (e) => {
+    if (e.target.id === "add-to-wishlist-section") addBookToWishlist(e);
 })
 
 
 // Wishlist book list
-function addBookToWishlist(event) {
-    let bookCardId = event.target.parentElement.parentElement.parentElement.id;
+function addBookToWishlist(e) {
+    let bookCardId = e.target.parentElement.parentElement.parentElement.id;
     let bookSelected = booksArray.find((book) => { return book.version === Number(bookCardId) })
     if (!bookSelected.wishlist) {bookSelected.wishlist = true;}
-    else { return bookSelected.wishlist = false };
+    else if (bookSelected.wishlist) {return bookSelected.wishlist = false }
+    else {console.log("there was an error.")}
 
     displayBookWishlist()
 
@@ -139,7 +139,7 @@ function addBookToWishlist(event) {
         },
     })
         .then((res) => res.json())
-        .then((data) => { console.log("added to wishlist >", data); displayBooks(data); })
+        .then((data) => {displayBooks(data); })
 }
 
 
@@ -163,7 +163,6 @@ function displayBookWishlist() {
 
             wishlistResults.insertAdjacentHTML("beforeend", bookCard);
             alert(`"${book.title}" was added to books your wishlist."`)
-
         }
 
     })
@@ -177,7 +176,7 @@ fetch("/books/wishlist/true", {
 })
     .then((res) => res.json())
     .then((data) => {
-        console.log("wishlist data", data);
+        console.log("wishlist array:", data);
         data.forEach((book) => {
             displayBookWishlist(book)
             let bookCard = `
@@ -195,11 +194,11 @@ fetch("/books/wishlist/true", {
             wishlistResults.insertAdjacentHTML("beforeend", bookCard);
 
 
-            document.addEventListener("click", (event) => {
-                let bookCardId = event.target.parentElement.parentElement.parentElement.id;
+            document.addEventListener("click", (e) => {
+                let bookCardId = e.target.parentElement.parentElement.parentElement.id;
                 let bookSelected = data.find((book) => book.version === Number(bookCardId));
 
-                if (event.target.id === "move-to-read-section") {
+                if (e.target.id === "move-to-read-section") {
                     bookSelected.hasRead = true;
                     bookSelected.wishlist = false;
                     alert(`"${bookSelected.title}" was move to books you have read.`)
@@ -229,9 +228,13 @@ fetch("/books/wishlist/true", {
     .catch((err) => { console.error(err) });
 
 
+    // adding click event for read
+document.addEventListener("click", (e) => {
+    if (e.target.id === "add-to-read-section") addBookToRead(e);
+})
 // read book list
-function addBookToRead(event) {
-    const bookCardId = event.target.parentElement.parentElement.parentElement.id;
+function addBookToRead(e) {
+    const bookCardId = e.target.parentElement.parentElement.parentElement.id;
     let bookSelected = booksArray.find((book) => { return book.version === Number(bookCardId) })
 
     if (!bookSelected.hasRead) { bookSelected.hasRead = true; }
@@ -259,7 +262,7 @@ function addBookToRead(event) {
         },
     })
         .then((res) => res.json())
-        .then((data) => { console.log("posted to read ->", data); displayBooks(data); })
+        .then((data) => {displayBooks(data); })
 }
 
 
@@ -283,8 +286,8 @@ function displayBooksRead() {
           </div>
         `;
 
-            booksReadResults.insertAdjacentHTML("beforeend", bookCard)
-            alert(`"${book.title}" was added to books you have read."`)
+            booksReadResults.insertAdjacentHTML("beforeend", bookCard);
+            alert(`"${book.title}" was added to books you have read."`);
 
         }
     })
@@ -298,7 +301,7 @@ fetch("/books/readlist/true", {
 })
     .then((res) => res.json())
     .then((data) => {
-        console.log("books read data", data);
+        console.log("books read array", data);
         data.forEach((book) => {
             let bookCard = `
             <div class="card" id="${book.version}">
@@ -320,11 +323,11 @@ fetch("/books/readlist/true", {
 
         });
 
-        document.addEventListener("click", (event) => {
-            let bookCardId = event.target.parentElement.parentElement.parentElement.id;
+        document.addEventListener("click", (e) => {
+            let bookCardId = e.target.parentElement.parentElement.parentElement.id;
             let bookSelected = data.find((book) => book.version === Number(bookCardId))
 
-            if (event.target.classList.contains("book-liked")) {
+            if (e.target.classList.contains("book-liked")) {
                 bookSelected.liked = true;
                 alert(`"${bookSelected.title}" has been liked`);
 
@@ -345,7 +348,7 @@ fetch("/books/readlist/true", {
                         console.log(error);
                     });
             }
-            else if (event.target.classList.contains("book-disliked")) {
+            else if (e.target.classList.contains("book-disliked")) {
                 bookSelected.liked = false;
                 alert(`"${bookSelected.title}" has been disliked`);
 
@@ -371,11 +374,11 @@ fetch("/books/readlist/true", {
     })
     .catch((err) => { console.error(err) });
 
-document.addEventListener("click", (event) => {
-    let bookCardId = event.target.parentElement.parentElement.parentElement.id;
+document.addEventListener("click", (e) => {
+    let bookCardId = e.target.parentElement.parentElement.parentElement.id;
     let bookSelected = booksArray.find((book) => book.version === Number(bookCardId));
 
-    if (event.target.id === "move-to-read-section") {
+    if (e.target.id === "move-to-read-section") {
         bookSelected.hasRead = true;
         bookSelected.wishlist = false;
         alert(`"${bookSelected.title} was moved to books you have read.`)
@@ -403,11 +406,11 @@ document.addEventListener("click", (event) => {
 
 
 // Rating books
-document.addEventListener("click", (event) => {
-    let bookCardId = event.target.parentElement.parentElement.parentElement.id;
+document.addEventListener("click", (e) => {
+    let bookCardId = e.target.parentElement.parentElement.parentElement.id;
     let bookSelected = booksArray.find((book) => book.version === Number(bookCardId))
 
-    if (event.target.classList.contains("liked-book")) {
+    if (e.target.classList.contains("liked-book")) {
         bookSelected.liked = true;
         alert(`"${bookSelected.title}" has been liked`);
 
@@ -427,7 +430,7 @@ document.addEventListener("click", (event) => {
                 console.log(error);
             });
     }
-    else if (event.target.classList.contains("disliked-book")) {
+    else if (e.target.classList.contains("disliked-book")) {
         bookSelected.liked = false;
         alert(`"${bookSelected.title}" has been disliked`);
 
@@ -440,7 +443,7 @@ document.addEventListener("click", (event) => {
                 "Accept": "application/json",
             },
         })
-            .then((res) => { console.log("happend"); res.json(); 
+            .then((res) => {res.json(); 
                         location.reload();
 
         })
