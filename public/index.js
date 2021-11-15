@@ -115,23 +115,23 @@ document.addEventListener("click", (event) => {
 
 // Wishlist book list
 function addBookToWishlist(event) {
-    let bookId = event.target.parentElement.parentElement.parentElement.id;
-    let book = booksArray.find((book) => { return book.version === Number(bookId) })
-    if (!book.wishlist) book.wishlist = true;
-    else { book.wishlist = false };
+    let bookCardId = event.target.parentElement.parentElement.parentElement.id;
+    let bookSelected = booksArray.find((book) => { return book.version === Number(bookCardId) })
+    if (!bookSelected.wishlist) {bookSelected.wishlist = true;}
+    else { return bookSelected.wishlist = false };
 
     displayBookWishlist()
 
     fetch("/books/readlist", {
         method: "POST",
         body: JSON.stringify({
-            version: `${book.version}`,
-            title: `${book.title}`,
-            author: `${book.author}`,
-            published: `${book.published}`,
-            wishlist: `${book.wishlist}`,
-            hasRead: `${book.hasRead}`,
-            liked: `${book.liked}`,
+            version: `${bookSelected.version}`,
+            title: `${bookSelected.title}`,
+            author: `${bookSelected.author}`,
+            published: `${bookSelected.published}`,
+            wishlist: `${bookSelected.wishlist}`,
+            hasRead: `${bookSelected.hasRead}`,
+            liked: `${bookSelected.liked}`,
         }),
         headers: {
             "Content-type": "application/json; charset=UTF-8",
@@ -162,6 +162,8 @@ function displayBookWishlist() {
         `;
 
             wishlistResults.insertAdjacentHTML("beforeend", bookCard);
+            alert(`"${book.title}" was added to books your wishlist."`)
+
         }
 
     })
@@ -196,17 +198,16 @@ fetch("/books/wishlist/true", {
 
             document.addEventListener("click", (event) => {
                 let bookCardId = event.target.parentElement.parentElement.parentElement.id;
-                let book = data.find((book) => book.version == bookCardId);
+                let bookSelected = data.find((book) => book.version === Number(bookCardId));
 
                 if (event.target.id === "move-to-read-section") {
-                    console.log("move >", book);
-                    book.hasRead = true;
-                    book.wishlist = false;
-                    alert(`"${book.title} move to read list.`)
+                    bookSelected.hasRead = true;
+                    bookSelected.wishlist = false;
+                    alert(`"${bookSelected.title}" was move to books you have read.`)
 
                     fetch(`/books/${bookCardId}`, {
                         method: "PUT",
-                        body: JSON.stringify({ hasRead: `${book.hasRead}`, wishlist: `${book.wishlist}` }),
+                        body: JSON.stringify({ hasRead: `${bookSelected.hasRead}`, wishlist: `${bookSelected.wishlist}` }),
                         headers: {
                             "Content-type": "application/json; charset=UTF-8",
                             "Accept": "application/json",
@@ -232,24 +233,26 @@ fetch("/books/wishlist/true", {
 // read book list
 function addBookToRead(event) {
     const bookCardId = event.target.parentElement.parentElement.parentElement.id;
-    let book = booksArray.find((book) => { return book.version === Number(bookCardId) })
+    let bookSelected = booksArray.find((book) => { return book.version === Number(bookCardId) })
 
-    if (!book.hasRead) { book.hasRead = true; }
-    else book.hasRead = false;
-    if (book.wishlist = true) { book.wishlist = false }
+    if (!bookSelected.hasRead) { bookSelected.hasRead = true; }
+    else if (bookSelected.hasRead) {bookSelected.hasRead = false;}
+    else {console.log("there was an error.")};
+
+    if (bookSelected.wishlist = true) { bookSelected.wishlist = false }
 
     displayBooksRead()
 
     fetch("/books/readlist", {
         method: "POST",
         body: JSON.stringify({
-            version: `${book.version}`,
-            title: `${book.title}`,
-            author: `${book.author}`,
-            published: `${book.published}`,
-            wishlist: `${book.wishlist}`,
-            hasRead: `${book.hasRead}`,
-            liked: `${book.liked}`,
+            version: `${bookSelected.version}`,
+            title: `${bookSelected.title}`,
+            author: `${bookSelected.author}`,
+            published: `${bookSelected.published}`,
+            wishlist: `${bookSelected.wishlist}`,
+            hasRead: `${bookSelected.hasRead}`,
+            liked: `${bookSelected.liked}`,
         }),
         headers: {
             "Content-type": "application/json; charset=UTF-8",
@@ -271,7 +274,7 @@ function displayBooksRead() {
             <h5 class="card-title">${book.title}</h5>
             <h6 class="card-subtitle mb-2 card-author">Author(s): ${book.author}</h6>
             <h6 class="card-subtitle mb-2 card-year">Published in: ${book.published}</h6>
-            <h6 class="card-subtitle mb-2 card-rating">Liked: ${book.liked}</h6>
+            <h6 class="card-subtitle mb-2 card-rating">Book Liked: ${book.liked}</h6>
 
             <div class="ratingDiv">
                <i class="fa fa-thumbs-up liked-book"></i>
@@ -282,6 +285,7 @@ function displayBooksRead() {
         `;
 
             booksReadResults.insertAdjacentHTML("beforeend", bookCard)
+            alert(`"${book.title}" was added to books you have read."`)
 
         }
     })
@@ -304,7 +308,7 @@ fetch("/books/readlist/true", {
               <h5 class="card-title">${book.title}</h5>
               <h6 class="card-subtitle mb-2 card-author">Author(s): ${book.author}</h6>
               <h6 class="card-subtitle mb-2 card-year">Published in: ${book.published}</h6>
-            <h6 class="card-subtitle mb-2 card-rating">Liked: ${book.liked}</h6>
+            <h6 class="card-subtitle mb-2 card-rating">Book Liked: ${book.liked}</h6>
 
 
             <div class="ratingDiv-data">
@@ -320,13 +324,13 @@ fetch("/books/readlist/true", {
 
         document.addEventListener("click", (event) => {
             let bookCardId = event.target.parentElement.parentElement.parentElement.id;
-            let bookSelected = data.find((book) => book.version == bookCardId)
-            let likedRating = document.querySelector(".book-liked");
-            let dislikedRating = document.querySelector(".book-disliked")
+            let bookSelected = data.find((book) => book.version === Number(bookCardId))
+            // let likedRating = document.querySelector(".book-liked");
+            // let dislikedRating = document.querySelector(".book-disliked")
 
             if (event.target.classList.contains("book-liked")) {
-                likedRating.setAttribute("id", "book-rated-up");
-                dislikedRating.removeAttribute("id", "book-rated-down");
+                // likedRating.setAttribute("id", "book-rated-up");
+                // dislikedRating.removeAttribute("id", "book-rated-down");
                 bookSelected.liked = true;
                 alert(`"${bookSelected.title}" has been liked`);
 
@@ -348,8 +352,6 @@ fetch("/books/readlist/true", {
                     });
             }
             else if (event.target.classList.contains("book-disliked")) {
-                dislikedRating.setAttribute("id", "book-rated-down");
-                likedRating.removeAttribute("id", "book-rated-up");
                 bookSelected.liked = false;
                 alert(`"${bookSelected.title}" has been disliked`);
 
@@ -377,18 +379,17 @@ fetch("/books/readlist/true", {
 
 document.addEventListener("click", (event) => {
     let bookCardId = event.target.parentElement.parentElement.parentElement.id;
-    let book = booksArray.find((book) => book.version == Number(bookCardId));
+    let bookSelected = booksArray.find((book) => book.version === Number(bookCardId));
 
     if (event.target.id === "move-to-read-section") {
-        console.log("move >", book);
-        book.hasRead = true;
-        book.wishlist = false;
-        alert(`"${book.title} move to read list.`)
+        bookSelected.hasRead = true;
+        bookSelected.wishlist = false;
+        alert(`"${bookSelected.title} was moved to books you have read.`)
 
 
         fetch(`/books/${bookCardId}`, {
             method: "PUT",
-            body: JSON.stringify({ hasRead: `${book.hasRead}`, wishlist: `${book.wishlist}` }),
+            body: JSON.stringify({ hasRead: `${bookSelected.hasRead}`, wishlist: `${bookSelected.wishlist}` }),
             headers: {
                 "Content-type": "application/json; charset=UTF-8",
                 "Accept": "application/json",
@@ -410,20 +411,15 @@ document.addEventListener("click", (event) => {
 // Rating books
 document.addEventListener("click", (event) => {
     let bookCardId = event.target.parentElement.parentElement.parentElement.id;
-    let book = booksArray.find((book) => book.version == bookCardId)
-    let likedRating = document.querySelector(".liked-book");
-    let dislikedRating = document.querySelector(".disliked-book")
+    let bookSelected = booksArray.find((book) => book.version === Number(bookCardId))
 
     if (event.target.classList.contains("liked-book")) {
-        likedRating.setAttribute("id", "book-rated-up");
-        dislikedRating.removeAttribute("id", "book-rated-down");
-        book.liked = true;
-        console.log(book)
-        alert(`"${book.title}" has been liked`);
+        bookSelected.liked = true;
+        alert(`"${bookSelected.title}" has been liked`);
 
         fetch(`/books/${bookCardId}`, {
             method: "PUT",
-            body: JSON.stringify({ liked: `${book.liked}` }),
+            body: JSON.stringify({ liked: `${bookSelected.liked}` }),
             headers: {
                 "Content-type": "application/json; charset=UTF-8",
                 "Accept": "application/json",
@@ -438,16 +434,13 @@ document.addEventListener("click", (event) => {
             });
     }
     else if (event.target.classList.contains("disliked-book")) {
-        event.target.dislikedRating.setAttribute("id", "book-rated-down");
-        likedRating.removeAttribute("id", "book-rated-up");
-        book.liked = false;
-        console.log(book)
-        alert(`"${book.title}" has been disliked`);
+        bookSelected.liked = false;
+        alert(`"${bookSelected.title}" has been disliked`);
 
 
         fetch(`/books/${bookCardId}`, {
             method: "PUT",
-            body: JSON.stringify({ liked: `${book.liked}` }),
+            body: JSON.stringify({ liked: `${bookSelected.liked}` }),
             headers: {
                 "Content-type": "application/json; charset=UTF-8",
                 "Accept": "application/json",
