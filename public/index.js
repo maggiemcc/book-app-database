@@ -180,7 +180,6 @@ fetch("/books/wishlist/true", {
         console.log("wishlist data", data);
         data.forEach((book) => {
             displayBookWishlist(book)
-            console.log("display >", book)
             let bookCard = `
             <div class="card" id="${book.version}">
             <div class="card-body">
@@ -301,7 +300,6 @@ fetch("/books/readlist/true", {
     .then((data) => {
         console.log("books read data", data);
         data.forEach((book) => {
-            console.log("display >", book)
             let bookCard = `
             <div class="card" id="${book.version}">
             <div class="card-body">
